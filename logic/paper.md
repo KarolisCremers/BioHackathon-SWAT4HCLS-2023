@@ -2,52 +2,41 @@
 title: 'Developing tools to provide public database information to clinicians: Mapping clinical ICD-O-3 codes to UMLS'
 title_short: 'Mapping clinical ICD-O-3 codes to UMLS'
 tags:
-  - logic programming
+  - SPARQL
+  - Wikidata
+  - GraphDB
 authors:
-  - name: Chris Mungall
-    orcid: 0000-0002-8021-9162
+  - name: Karolis Cremers
+    orcid: 0000-0002-1756-3905
     affiliation: 1
-  - name: Hirokazu Chiba
+  - name: 
+    orcid:
     affiliation: 2
-  - name: Shuichi Kawashima
+  - name: 
+    orcid:
     affiliation: 2
-  - name: Yasunori Yamamoto
+  - name: 
+    orcid:
     affiliation: 2
-  - name: Pjotr Prins
-    orcid: 0000-0002-8021-9162
-    affiliation: 3
-  - name: Nada Amin
-    affiliation: 4
-  - name: Deepak Unni
-    affiliation: 5
-    orcid: 0000-0002-3583-7340
-  - name: <nobr>William&nbsp;E.&nbsp;Byrd</nobr>
-    affiliation: 6
 affiliations:
-  - name: Environmental Genomics and Systems Biology, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
+  - name: Biosemantics, Leiden University Medical Centre, Leiden, The Netherlands
     index: 1
-  - name: Database Center for Life Science, Research Organization of Information and Systems, Japan
+  - name: 
     index: 2
-  - name: Department of Genetics, Genomics and Informatics, The University of Tennessee Health Science Center, Memphis, TN, USA.
+  - name: 
     index: 3
-  - name: Harvard University, USA
-    index: 4
-  - name: Berkeley Lab, USA
-    index: 5
-  - name: University of Alabama at Birmingham, USA
-    index: 6
-date: 3 March 2020
+date: 3 March 2020 # Todo
 cito-bibliography: paper.bib
-event: Fukuoka2019
-biohackathon_name: "NBDC/DBCLS BioHackathon"
-biohackathon_url:   "http://2019.biohackathon.org/"
-biohackathon_location: "Fukuoka, Japan, 2019"
-group: Logic programming group
+event: SWAT4HCLS2023
+biohackathon_name: "Biohackathon – SWAT4HCLS"
+biohackathon_url:   "https://www.swat4ls.org/workshops/basel2023/hackathon/"
+biohackathon_location: "Basel, Switzerland, 2023"
+group: Speed up development of biomedical use cases with Linked Life Data inventory!
 # URL to project git repo --- should contain the actual paper.md:
-git_url: https://github.com/biohackrxiv/bhxiv-gen-pdf
+git_url: https://github.com/KarolisCremers/BioHackathon-SWAT4HCLS-2023
 # This is the short authors description that is used at the
 # bottom of the generated paper (typically the first two authors):
-authors_short: Chris Mungall & Hirokazu Chiba \emph{et al.}
+authors_short: Karolis Cremers &  \emph{et al.} # Todo
 ---
 
 
@@ -65,7 +54,18 @@ pasting above link (or yours) in
 -->
 
 # Introduction
+As part of the Biohackathon - SWAT4HCLS 2023 in Basel Switzerland, we formed a working group on use cases on linked data.
 
+Linked data:
+Using URI's to find overlapping concepts across data sources.
+This enriches both datasets.
+Linked data is queried in this project using SPARQL.
+The linked data that is queried involves: Wikidata, UMLS and the Linked Life Data inventory from GraphDB (Ontotext).
+
+One of the challenges in this project are the ICD-O-3 codes used by clinicians. This is because these codes are not widely adopted in public databases. We make use of the Clinical Cancer community through their contributions in Wikidata by identifying more commonly used URI's in public databases by SPARQL querying ICD-O-3 codes.
+See 
+
+# template text:
 As part of the one week Biohackathion 2019 in Fukuoka Japan, we formed
 a working group on logic programming for the biomedical sciences.
 Logic programming is understood by many bioinformaticians when it is
@@ -78,7 +78,7 @@ Domain Specific Language for logic programming. Core miniKanren is
 exceptionally simple, with only three logical operators and one
 interface operator [@uses_method_in:reasoned2nd].
 
-![Logic programming resolver traverses the solution space to find all matches \label{fig}](./logic-programming.png)
+![An overview on how we were able to extract biologically relevent information from ICD-O-3 codes, the problems we encountered and the type of information we were able to extract. \label{fig}](./biohackaton slide.png)
 
 ![An SVG example](./test.svg)
 
