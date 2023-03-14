@@ -73,6 +73,7 @@ The task was to extract structured descriptions of diseases encoded in ICD-O and
 
 1. We constructed a mapping graph by querying the public SPARQL endpoint of Wikidata to extract all concepts classed as Disease having an ICD-O code. In this mapping we assign the corresponding ICD-O resource to the disease using the exactMatch predicate from SKOS:
 
+'''
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 CONSTRUCT
 {
@@ -86,9 +87,11 @@ WHERE
         wdt:P563 ?icdo .
 }
 }
+'''
 
 The result we downloaded as the attached WikiData_2_ICDO.trig file which we then imported into the demo instance of the LinkedLifeData Inventory at https://lld-inventory.ontotext.com/swat4hcls/graphdb as https://lld-inventory.ontotext.com/swat4hcls/graphdb/resource?uri=http%3A%2F%2Flinkedlifedata.com%2Fsemantic-mappings%2Finstance%2Fwikidata-exactmatch-icdo&role=context
 2. We constructed a second mapping graph by querying the public SPARQL endpoint of Wikidata to extract all concepts classed as Disease having an UMLS code. In this mapping we assign the corresponding UMLS resource to the disease using the exactMatch predicate from SKOS. Note that in this case we are constructing the UMLS code as a LinkedLifeData resource since UMLS is already loaded in LinkedLifeData:
+"""
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 CONSTRUCT
 {
@@ -102,6 +105,7 @@ WHERE
         wdt:P2892 ?umls
 }
 }
+"""
 The result we downloaded as the attached WikiData_2_UMLS.trig file which we then imported into the demo instance of the LinkedLifeData Inventory at https://lld-inventory.ontotext.com/swat4hcls/graphdb as https://lld-inventory.ontotext.com/swat4hcls/graphdb/resource?uri=http%3A%2F%2Flinkedlifedata.com%2Fsemantic-mappings%2Finstance%2Fwikidata-exactmatch-umls&role=context
 Now, having "jumped" from ICD-O to UMLS via the WikiData concept we are ready to query the LinkedLifeData for more information about the condition encoded with the specific ICD-O code. Note that we could've chosen to go straight to this part by using a federated query that would perform the mapping "live" on query.wikidata.org but we were advised against doing so in order not to overload the WikiData SPARQL endpoint.
 Below are 2 sample queries on LinkedLifeData.
