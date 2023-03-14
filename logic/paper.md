@@ -72,22 +72,21 @@ See figure [slide] for an overview of the workflow, results and discussion perfo
 The task was to extract structured descriptions of diseases encoded in ICD-O and linked information. We decided to use Wikidata to extract the mappings between ICD-O and UMLS as follows:
 
 1. We constructed a mapping graph by querying the public SPARQL endpoint of Wikidata to extract all concepts classed as Disease having an ICD-O code. In this mapping we assign the corresponding ICD-O resource to the disease using the exactMatch predicate from SKOS:
-
-'''
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-CONSTRUCT
-{
-    ?disease skos:exactMatch ?icdoCode
-}
-WHERE{
-SELECT DISTINCT ?disease (URI(CONCAT('http://purl.bioontology.org/ontology/ICDO/', ?icdo)) AS ?icdoCode) #?itemLabel 
-WHERE 
-{
-  ?disease wdt:P31 wd:Q112193867 ; # class of disease
-        wdt:P563 ?icdo .
-}
-}
-'''
+```
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+  CONSTRUCT
+  {
+      ?disease skos:exactMatch ?icdoCode
+  }
+  WHERE{
+  SELECT DISTINCT ?disease (URI(CONCAT('http://purl.bioontology.org/ontology/ICDO/', ?icdo)) AS ?icdoCode) #?itemLabel 
+  WHERE 
+  {
+    ?disease wdt:P31 wd:Q112193867 ; # class of disease
+          wdt:P563 ?icdo .
+  }
+  }
+```
 
 The result we downloaded as the attached WikiData_2_ICDO.trig file which we then imported into the demo instance of the LinkedLifeData Inventory at https://lld-inventory.ontotext.com/swat4hcls/graphdb as https://lld-inventory.ontotext.com/swat4hcls/graphdb/resource?uri=http%3A%2F%2Flinkedlifedata.com%2Fsemantic-mappings%2Finstance%2Fwikidata-exactmatch-icdo&role=context
 2. We constructed a second mapping graph by querying the public SPARQL endpoint of Wikidata to extract all concepts classed as Disease having an UMLS code. In this mapping we assign the corresponding UMLS resource to the disease using the exactMatch predicate from SKOS. Note that in this case we are constructing the UMLS code as a LinkedLifeData resource since UMLS is already loaded in LinkedLifeData:
