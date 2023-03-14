@@ -64,7 +64,7 @@ The linked data that is queried involves: Wikidata, UMLS and the Linked Life Dat
 
 One of the challenges in this project are the ICD-O-3 codes used by clinicians. This is because these codes are not widely adopted in public databases. We make use of the Clinical Cancer community through their contributions in Wikidata by identifying more commonly used URI's in public databases by SPARQL querying ICD-O-3 codes.
 See 
-![An overview on how we were able to extract biologically relevent information from ICD-O-3 codes, the problems we encountered and the type of information we were able to extract. \label{fig}](./biohackaton_slide.png)
+![An overview on how we were able to extract biologically relevent information from ICD-O-3 codes, the problems we encountered and the type of information we were able to extract. \label{fig}](biohackathon_slide.png)
 
 # template text:
 As part of the one week Biohackathion 2019 in Fukuoka Japan, we formed
