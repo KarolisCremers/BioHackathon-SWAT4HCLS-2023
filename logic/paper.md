@@ -55,8 +55,8 @@ pasting above link (or yours) in
 
 -->
 
-# Introduction
-As part of the Biohackathon - SWAT4HCLS 2023 in Basel Switzerland, we formed a working group on use cases on linked data.
+# Background
+As part of the Biohackathon - SWAT4HCLS 2023 in Basel Switzerland, we formed a working group on use cases on applying linked data in a clinical setting.
 
 Linked data:
 Using URI's to find overlapping concepts across data sources.
@@ -64,8 +64,10 @@ This enriches both datasets.
 Linked data is queried in this project using SPARQL.
 The linked data that is queried involves: Wikidata, UMLS and the Linked Life Data inventory from GraphDB (Ontotext).
 
-One of the challenges in this project are the ICD-O-3 codes used by clinicians. This is because these codes are not widely adopted in public databases. We make use of the Clinical Cancer community through their contributions in Wikidata by identifying more commonly used URI's in public databases by SPARQL querying ICD-O-3 codes.
-See figure [slide] for an overview of the workflow, results and discussion performed at the biohackathon.
+Biobanks are one of the most valuable bases of clinical research, they store and provide biological samples obtained from patients. These samples represent both opportunity for research and therapeutics. One of the challenges in oncology biobanks is the ICD-O-3 codes used by clinicians. This is because these codes are not widely adopted in public databases. 
+
+With a selection of ICD-0-3 codes relevant to oncology. We make use of the Clinical Cancer community through their contributions in Wikidata by identifying more commonly used URI's in public databases by SPARQL querying ICD-O-3 codes. This allows us to capture diagnosis relevant data from these databases to potentially improve both research and on-site therapies. 
+See figure [\ref{slide}] for an overview of the workflow, results and discussion performed at the biohackathon.
 ![An overview on how we were able to extract biologically relevent information from ICD-O-3 codes, the problems we encountered and the type of information we were able to extract. \label{slide}](biohackathon_slide.png)
 
 
@@ -90,7 +92,7 @@ The task was to extract structured descriptions of diseases encoded in ICD-O and
 
 The result we downloaded as the attached WikiData_2_ICDO.trig file which we then imported into the demo instance of the LinkedLifeData Inventory at https://lld-inventory.ontotext.com/swat4hcls/graphdb as https://lld-inventory.ontotext.com/swat4hcls/graphdb/resource?uri=http%3A%2F%2Flinkedlifedata.com%2Fsemantic-mappings%2Finstance%2Fwikidata-exactmatch-icdo&role=context
 2. We constructed a second mapping graph by querying the public SPARQL endpoint of Wikidata to extract all concepts classed as Disease having an UMLS code. In this mapping we assign the corresponding UMLS resource to the disease using the exactMatch predicate from SKOS. Note that in this case we are constructing the UMLS code as a LinkedLifeData resource since UMLS is already loaded in LinkedLifeData:
-"""
+```
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 CONSTRUCT
 {
@@ -104,11 +106,12 @@ WHERE
         wdt:P2892 ?umls
 }
 }
-"""
+```
 The result we downloaded as the attached WikiData_2_UMLS.trig file which we then imported into the demo instance of the LinkedLifeData Inventory at https://lld-inventory.ontotext.com/swat4hcls/graphdb as https://lld-inventory.ontotext.com/swat4hcls/graphdb/resource?uri=http%3A%2F%2Flinkedlifedata.com%2Fsemantic-mappings%2Finstance%2Fwikidata-exactmatch-umls&role=context
 Now, having "jumped" from ICD-O to UMLS via the WikiData concept we are ready to query the LinkedLifeData for more information about the condition encoded with the specific ICD-O code. Note that we could've chosen to go straight to this part by using a federated query that would perform the mapping "live" on query.wikidata.org but we were advised against doing so in order not to overload the WikiData SPARQL endpoint.
 Below are 2 sample queries on LinkedLifeData.
 1. Extracting concept definitions and labels:
+```
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 select ?wikidata ?icdo ?umls ((GROUP_CONCAT(?label; separator="; ")) AS ?labels) ((GROUP_CONCAT(?definition; separator="; ")) AS ?definitions)
 where {
@@ -121,7 +124,9 @@ where {
     OPTIONAL{?umls skos:prefLabel|skos:altLabel ?label}.
     OPTIONAL{?umls skos:definition ?definition}
 } GROUP BY ?wikidata ?icdo ?umls
+```
 2. Extracting gene-disease relations:
+```
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX umls_rel: <https://linkedlifedata.com/resource/umls/relation/>
 select distinct ?icdo ?label ?umls ?relation ?inter ?interLabel 
@@ -137,7 +142,14 @@ where {
     ?umls skos:prefLabel ?label .
     ?inter skos:prefLabel ?interLabel .
 }
+```
 Both queries, and more, can be executed by copying and pasting in the SPARQL editor on that same instance. Navigate to https://lld-inventory.ontotext.com/swat4hcls/graphdb/sparql and login with swat4hcls_3:2023_hackathon. We've saved both sample queries for convenience in GraphDB - you will find them in the list under the Save icon in the SPARQL editor.
+
+
+
+
+
+
 
 # template text:
 As part of the one week Biohackathion 2019 in Fukuoka Japan, we formed
